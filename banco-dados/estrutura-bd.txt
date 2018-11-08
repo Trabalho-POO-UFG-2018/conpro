@@ -1,0 +1,25 @@
+
+create database conpro;
+
+
+
+use conpro;
+
+
+create table loja(
+	
+	id int NOT NULL AUTO_INCREMENT,
+	
+	razao_social varchar(30),
+    
+	rua varchar(30),
+    
+	bairro varchar(30),
+    
+	cidade varchar(30),
+    
+	estado varchar(30),
+    
+	PRIMARY KEY(id)
+
+);

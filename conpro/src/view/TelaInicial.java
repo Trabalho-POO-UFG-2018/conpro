@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.border.Border;
 import javax.swing.*;
@@ -10,6 +12,7 @@ import javax.swing.*;
 final class TelaInicial extends JFrame{
     
     private static TelaInicial instancia;
+    private Login telaLogin;
     
     
     private TelaInicial(){
@@ -28,8 +31,11 @@ final class TelaInicial extends JFrame{
 
         loja = new javax.swing.JButton();
         cliente = new javax.swing.JButton();
-
+        
+        
+        //Controla o fechamento da janela
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
         setTitle("Inicio");
         setMinimumSize(new Dimension(500,500));
 
@@ -84,7 +90,9 @@ final class TelaInicial extends JFrame{
     
     //Eventos
     private void lojaActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
+        telaLogin = Login.getInstance();
+        telaLogin.setVisible(true);
+        this.setVisible(false);
     }
     
     private void clienteActionPerformed(java.awt.event.ActionEvent evt) {                                        
@@ -95,8 +103,8 @@ final class TelaInicial extends JFrame{
     private javax.swing.JButton cliente;
     private javax.swing.JButton loja;
     
-    //Outros métodos
-   
+    //Outro métodos
+    
     
    
 }

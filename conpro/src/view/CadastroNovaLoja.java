@@ -3,6 +3,7 @@ package view;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 final class CadastroNovaLoja extends JFrame{
     //Instância do Singleton
@@ -43,6 +44,7 @@ final class CadastroNovaLoja extends JFrame{
     private void initComponents() {
 
         rua_TextField = new javax.swing.JTextField();
+        rua_TextField.setName("rua");
         jLabel1 = new javax.swing.JLabel();
         razao_social_TextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -68,9 +70,13 @@ final class CadastroNovaLoja extends JFrame{
         setTitle("Cadastrar nova loja");
         setMaximumSize(new java.awt.Dimension(554, 395));
         
-        cadastrar_nova_loja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrar_nova_loja_ActionPerformed(evt);
+        cadastrar_nova_loja.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                try{
+                    cadastrar_nova_loja_ActionPerformed(evt);
+                }catch(InvalidTextException e){
+                    System.out.println(e);
+                }
             }
         });
         
@@ -196,7 +202,7 @@ final class CadastroNovaLoja extends JFrame{
     
     //Eventos
     private void rua_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
+        
     }                                             
 
     private void razao_social_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                       
@@ -219,10 +225,15 @@ final class CadastroNovaLoja extends JFrame{
         // TODO add your handling code here:
     }
     
-    private void cadastrar_nova_loja_ActionPerformed(java.awt.event.ActionEvent evt){
-        try{
-            
-        }
+    private void cadastrar_nova_loja_ActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException{
+        String rua = getTextField(rua_TextField);
     }
     
+    private String getTextField(JTextField textField) throws InvalidTextException{
+        if(textField.getText().length() == 0){
+            throw new InvalidTextException("O nome da " + textField.getName() + " não pode ser vazio");
+        }
+        
+        return textField.getText();
+    }
 }

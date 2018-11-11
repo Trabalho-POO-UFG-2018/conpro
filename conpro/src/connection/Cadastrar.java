@@ -22,10 +22,10 @@ public class Cadastrar {
             stmt.setString(5, "1");
             */
             stmt.setString(1, novaLoja.getRazaoSocial());
-            stmt.setString(2, novaLoja.endereco.getRua());
-            stmt.setString(3, novaLoja.endereco.getBairro());
-            stmt.setString(4, novaLoja.endereco.getCidade());
-            stmt.setString(5, novaLoja.endereco.getEstado());
+            stmt.setString(2, novaLoja.getEndereco().getRua());
+            stmt.setString(3, novaLoja.getEndereco().getBairro());
+            stmt.setString(4, novaLoja.getEndereco().getCidade());
+            stmt.setString(5, novaLoja.getEndereco().getEstado());
             stmt.executeUpdate();
             System.out.println("Um Sucesso");
 	} catch (SQLException e) {

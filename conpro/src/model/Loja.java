@@ -12,7 +12,7 @@ public class Loja {
 	private ArrayList<Produto> listaProdutos = new ArrayList();
         
         
-        public void validarCPNJ(String cnpj) throws CNPJException{
+        public static void validarCNPJ(String cnpj) throws CNPJException{
             int[] primeira_etapa = {5,4,3,2,9,8,7,6,5,4,3,2};// 12 digitos
             int[] segunda_etapa = {6,5,4,3,2,9,8,7,6,5,4,3,2};// 13 digitos
             int primeiro_digito = 0;
@@ -59,7 +59,7 @@ public class Loja {
 	//construtor
         public Loja(){};
         
-	public Loja(String razaoSocial, Endereco endereco){
+	public Loja(String razaoSocial, String cnpj, Endereco endereco){
 		this.razaoSocial = razaoSocial;
 		this.endereco = endereco;
 	}	

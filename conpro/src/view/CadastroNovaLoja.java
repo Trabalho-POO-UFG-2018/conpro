@@ -1,9 +1,17 @@
+/*
+* TODO
+* Tratar a entrada do CNPJ no método de cadastrar nova loja
+*/
+
 package view;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import model.*;
 
 final class CadastroNovaLoja extends JFrame{
     //Instância do Singleton
@@ -45,20 +53,35 @@ final class CadastroNovaLoja extends JFrame{
 
         rua_TextField = new javax.swing.JTextField();
         rua_TextField.setName("rua");
-        jLabel1 = new javax.swing.JLabel();
+        
         razao_social_TextField = new javax.swing.JTextField();
+        razao_social_TextField.setName("razão social");
+
+        bairro_TextField = new javax.swing.JTextField();
+        bairro_TextField.setName("bairro");
+
+        estado_TextField = new javax.swing.JTextField();
+		estado_TextField.setName("estado");        
+        
+        cidade_TextField = new javax.swing.JTextField();
+        cidade_TextField.setName("cidade");
+
+        cnpj_TextField = new javax.swing.JTextField();
+        cnpj_TextField.setName("cnpj");
+
+        cadastrar_nova_loja = new javax.swing.JButton();
+        cadastrar_nova_loja.setBorder(new RoundedBorder(20));
+        
+        
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        bairro_TextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        estado_TextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        cidade_TextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        cnpj_TextField = new javax.swing.JTextField();
-        cadastrar_nova_loja = new javax.swing.JButton();
-        cadastrar_nova_loja.setBorder(new RoundedBorder(20));
+        
+        
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter(){
@@ -76,6 +99,8 @@ final class CadastroNovaLoja extends JFrame{
                     cadastrar_nova_loja_ActionPerformed(evt);
                 }catch(InvalidTextException e){
                     System.out.println(e);
+                } catch (CNPJException ex) {
+                    System.out.println(ex);
                 }
             }
         });
@@ -225,8 +250,23 @@ final class CadastroNovaLoja extends JFrame{
         // TODO add your handling code here:
     }
     
-    private void cadastrar_nova_loja_ActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException{
-        String rua = getTextField(rua_TextField);
+    private void cadastrar_nova_loja_ActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException{
+        Endereco end;
+        Loja loja;
+        String razao_social = getTextField(razao_social_TextField);
+        String cnpj = getTextField(cnpj_TextField);
+       	String rua = getTextField(rua_TextField);
+      	String bairro = getTextField(bairro_TextField);
+      	String cidade = getTextField(cidade_TextField);
+      	String estado = getTextField(estado_TextField);
+
+      	try{
+            Loja.validarCNPJ(cnpj);
+      	}catch(CNPJException e){
+            System.out.println(e.getMessage());
+      	}
+      	end = new Endereco(rua,bairro,cidade,estado);
+      	loja = new Loja(razao_social,cnpj,end);
     }
     
     private String getTextField(JTextField textField) throws InvalidTextException{

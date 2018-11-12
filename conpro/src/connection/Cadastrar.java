@@ -7,13 +7,13 @@ import model.Loja;
 
 public class Cadastrar {
     
-    public void create(Loja novaLoja) {        
+    public static void create(Loja novaLoja) {        
 	Connection con = ConnectionDB.getConnection();
         System.out.printf("Consegui obter conexao");
 	PreparedStatement stmt = null;
 		
 	try {
-            stmt = con.prepareStatement("insert into loja (razao_social, rua, bairro, cidade, estado) values (?, ?, ?, ?, ?)");
+            stmt = con.prepareStatement("insert into lojas (razao_social, rua, bairro, cidade, estado) values (?, ?, ?, ?, ?)");
             /*
             stmt.setString(1, "1");
             stmt.setString(2, "1");

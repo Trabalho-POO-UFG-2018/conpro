@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import model.*;
+import connection.*;
 
 final class CadastroNovaLoja extends JFrame{
     //Instância do Singleton
@@ -267,6 +268,9 @@ final class CadastroNovaLoja extends JFrame{
       	}
       	end = new Endereco(rua,bairro,cidade,estado);
       	loja = new Loja(razao_social,cnpj,end);
+        
+        Cadastrar.create(loja);
+        
     }
     
     private String getTextField(JTextField textField) throws InvalidTextException{

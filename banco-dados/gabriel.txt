@@ -1,0 +1,2 @@
+Aproveitar a consulta no BD para realizar o login e automaticamente coletar as informações da loja,
+uma delas é o id da loja, e no mesmo momento ja setar ele e utiliza-lo enquanto o log for mantido.

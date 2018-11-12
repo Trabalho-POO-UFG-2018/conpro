@@ -1,10 +1,10 @@
 package model;
 
 public class Produto {
-	int codigo;
-	String nome;
-	int quantidade;
-	double preco;
+	private int codigo;
+	private String nome;
+	private int quantidade;
+	private double preco;
 	
 	//construtor
 	public Produto(int codigo, String nome, int quantidade, double preco){

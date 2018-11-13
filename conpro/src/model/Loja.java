@@ -4,12 +4,12 @@ import model.Endereco;
 import java.util.ArrayList;
 
 public class Loja {
-
+	private int id;
 	private String razaoSocial;
     private String cnpj;
     private String senha;
 	private Endereco endereco;
-	private ArrayList<Produto> listaProdutos = new ArrayList();
+	//private ArrayList<Produto> listaProdutos = new ArrayList();
         
         
        
@@ -24,6 +24,12 @@ public class Loja {
 	}	
 		
 	//setters e getters
+	public void setId(int id){
+		this.id = id;
+	}
+	public int getId(){
+		return this.id;
+	}
 	public void setRazaoSocial(String razaoSocial){
 		this.razaoSocial = razaoSocial;
 	}

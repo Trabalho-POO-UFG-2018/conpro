@@ -34,10 +34,6 @@ public class Teste {
         novaLoja = new Loja(razaoSocial, cnpj, senha, novoEndereco);
             
         cadastro.createLoja(novaLoja);
-<<<<<<< HEAD
-=======
-        
->>>>>>> 475c84b16fcc6c48357d59cd346d188f9794f30e
 
     }
     

@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 import model.*;
 
-public class Cadastrar {
-    public static void createLoja(Loja novaLoja) {        
+public class Cadastrar{
+    public static void createLoja(Loja novaLoja){        
     	Connection con = ConnectionDB.getConnection();
     	PreparedStatement stmt = null;
 		Endereco novoEndereco = novaLoja.getEndereco();
@@ -25,7 +25,7 @@ public class Cadastrar {
             stmt.executeUpdate();
             System.out.println("Um Sucesso");
 	} catch (SQLException e) {
-		e.printStackTrace();
+            e.printStackTrace();
 	}
 		
     }
@@ -36,7 +36,7 @@ public class Cadastrar {
 	
     	
     }
-    public boolean checkLogin(String cnpj, String senha) {        
+    public static boolean checkLogin(String cnpj, String senha) {        
 		Connection con = ConnectionDB.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -55,7 +55,7 @@ public class Cadastrar {
 	        }
 	           return check;
 	}    
-    public Loja obterLoja(String cnpj){
+    public static Loja obterLoja(String cnpj){
     	
     	Connection con = ConnectionDB.getConnection();
 		PreparedStatement stmt = null;

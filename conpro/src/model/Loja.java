@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Loja {
 	private int id;
 	private String razaoSocial;
-    private String cnpj;
-    private String senha;
+        private String cnpj;
+        private String senha;
 	private Endereco endereco;
 	//private ArrayList<Produto> listaProdutos = new ArrayList();
         

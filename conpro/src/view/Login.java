@@ -1,9 +1,14 @@
 
 package view;
 
+import connection.Cadastrar;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import model.Loja;
 
 public class Login extends JFrame{
     
@@ -39,9 +44,13 @@ public class Login extends JFrame{
         criarNovaConta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        
         senhaLogin = new javax.swing.JPasswordField();
+        senhaLogin.setName("senha");
+        
         cnpjLogin = new javax.swing.JTextField();
-
+        cnpjLogin.setName("cnpj");
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
         addWindowListener(new WindowAdapter(){
@@ -57,7 +66,11 @@ public class Login extends JFrame{
         login.setText("Entrar");
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginActionPerformed(evt);
+                try {
+                    loginActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex);
+                }
             }
         });
 
@@ -74,13 +87,21 @@ public class Login extends JFrame{
 
         senhaLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                senhaLoginActionPerformed(evt);
+                try {
+                    senhaLoginActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
         });
 
         cnpjLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cnpjLoginActionPerformed(evt);
+                try {
+                    cnpjLoginActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
         });
 
@@ -128,16 +149,49 @@ public class Login extends JFrame{
     }
 
     //Eventos
-    private void senhaLoginActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
+    private void senhaLoginActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException{                                           
+        loginActionPerformed(evt);
     }                                          
 
-    private void loginActionPerformed(java.awt.event.ActionEvent evt) {                                      
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException{                                      
+        boolean isLoged = false;
+        String cnpjDigitado = "";
+        String senhaDigitada;
+        Loja loja;
+        Plataforma platform;
         
+        //Tenta capturar o cnpj e senha dos textfield e validá-los
+        try{
+            cnpjDigitado = ControladorDeJanelas.getTextField(cnpjLogin);    
+            senhaDigitada = ControladorDeJanelas.getTextField(senhaLogin);
+            isLoged = Cadastrar.checkLogin(cnpjDigitado, senhaDigitada);
+        }catch(InvalidTextException e){
+            new GUIException(e.getMessage());
+        }
+        
+        //Caso obtenha sucesso em se logar, fecha a janela de login e abre a da plataforma
+        if(isLoged){
+            //Mensagem de sucesso
+            JOptionPane.showMessageDialog(null, "Você se logou com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            //"Fechamento" da janela de login
+            instancia.setVisible(false);
+            
+            //Obtem a loja que foi logada
+            loja = Cadastrar.obterLoja(cnpjDigitado);
+            
+            //Coloca a janela da plataforma visível
+            platform = Plataforma.getInstance();
+            platform.setVisible(true);
+            platform.setTextNomeLoja(loja.getRazaoSocial());
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"Usuário ou senha inválidos!\n Por favor, tente novamente.", "Erro",JOptionPane.ERROR_MESSAGE);
+        }
     }                                     
 
-    private void cnpjLoginActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+    private void cnpjLoginActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                          
+        loginActionPerformed(evt);
     }                                         
 
     private void criarNovaContaActionPerformed(java.awt.event.ActionEvent evt) {                                               

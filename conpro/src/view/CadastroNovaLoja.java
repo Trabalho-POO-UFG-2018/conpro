@@ -8,6 +8,7 @@ import model.*;
 import connection.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public final class CadastroNovaLoja extends JFrame{
     //Instância do Singleton
@@ -350,14 +351,15 @@ public final class CadastroNovaLoja extends JFrame{
     private void cadastrarNovaLojaActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException{                                                  
         Endereco end;
         Loja loja;
+        boolean flag = false;
         try{
-            String razao_social = getTextField(razaoSocialTextField);
-            String cnpj = getTextField(cnpjTextField);
-            String rua = getTextField(ruaTextField);
-            String bairro = getTextField(bairroTextField);
-            String cidade = getTextField(cidadeTextField);
-            String estado = getTextField(estadoTextField);
-            String senha = getTextField(senhaTextField);
+            String razao_social = ControladorDeJanelas.getTextField(razaoSocialTextField);
+            String cnpj = ControladorDeJanelas.getTextField(cnpjTextField);
+            String rua = ControladorDeJanelas.getTextField(ruaTextField);
+            String bairro = ControladorDeJanelas.getTextField(bairroTextField);
+            String cidade = ControladorDeJanelas.getTextField(cidadeTextField);
+            String estado = ControladorDeJanelas.getTextField(estadoTextField);
+            String senha = ControladorDeJanelas.getTextField(senhaTextField);
             
             Loja.validarCNPJ(cnpj);
             
@@ -365,27 +367,22 @@ public final class CadastroNovaLoja extends JFrame{
             loja = new Loja(razao_social,cnpj,senha,end);
             
             Cadastrar.createLoja(loja);
-            
+            flag = true;
       	}catch(CNPJException e){
             new GUIException(e.getMessage());
       	}catch(InvalidTextException e){
             new GUIException(e.getMessage());
         }
-      	
-        
+      	if(flag)
+            JOptionPane.showMessageDialog(null, "Loja criada com sucesso!\nVocê já pode logar em sua conta", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            instancia.setVisible(false);
+            Login.getInstance().setVisible(true);
     }
    
     /**
-    * 
     * Pega os textos que estão presentes nos "Texts Fields"
     * @param textField TextField que será analisado a fim de retornar o texto presente nele
     * @return Retorna o texto presente no textfield analisado 
     */
-    private String getTextField(JTextField textField) throws InvalidTextException{
-        if(textField.getText().length() == 0){
-            throw new InvalidTextException("O campo:  " + textField.getName() + " não pode ser vazio");
-        }
-        
-        return textField.getText();
-    }
+    
 }

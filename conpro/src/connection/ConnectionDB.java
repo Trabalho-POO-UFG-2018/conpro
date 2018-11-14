@@ -10,7 +10,7 @@ public class ConnectionDB {
 private static String DRIVER = "com.mysql.cj.jdbc.Driver";
 private static String URL = "jdbc:mysql://localhost:3306/conpro?useTimezone=true&serverTimezone=UTC";
 private static String USER = "root";
-private static String PASS = "aula321";
+private static String PASS = "trabalhopoo2018";
 	
 public static Connection getConnection() {
     try {

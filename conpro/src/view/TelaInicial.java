@@ -9,7 +9,7 @@ import javax.swing.border.Border;
 import javax.swing.*;
 
 
-final class TelaInicial extends JFrame{
+public final class TelaInicial extends JFrame{
     
     private static TelaInicial instancia;
     private Login telaLogin;

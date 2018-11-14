@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import model.*;
 
 public class Cadastrar {
-    public void createLoja(Loja novaLoja) {        
+    public static void createLoja(Loja novaLoja) {        
     	Connection con = ConnectionDB.getConnection();
     	PreparedStatement stmt = null;
 		Endereco novoEndereco = novaLoja.getEndereco();

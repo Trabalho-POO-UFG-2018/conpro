@@ -1,20 +1,15 @@
-/*
-* TODO
-* Tratar a entrada do CNPJ no método de cadastrar nova loja
-*/
-
 package view;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import model.*;
 import connection.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-final class CadastroNovaLoja extends JFrame{
+public final class CadastroNovaLoja extends JFrame{
     //Instância do Singleton
     private static CadastroNovaLoja instancia;
     
@@ -33,11 +28,11 @@ final class CadastroNovaLoja extends JFrame{
     
     
     //Variáveis do JFrame
-    private javax.swing.JTextField bairro_TextField;
-    private javax.swing.JButton cadastrar_nova_loja;
-    private javax.swing.JTextField cidade_TextField;
-    private javax.swing.JTextField cnpj_TextField;
-    private javax.swing.JTextField estado_TextField;
+    private javax.swing.JTextField bairroTextField;
+    private javax.swing.JButton cadastrarNovaLoja;
+    private javax.swing.JTextField cidadeTextField;
+    private javax.swing.JTextField cnpjTextField;
+    private javax.swing.JTextField estadoTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -45,34 +40,42 @@ final class CadastroNovaLoja extends JFrame{
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField razao_social_TextField;
-    private javax.swing.JTextField rua_TextField;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField razaoSocialTextField;
+    private javax.swing.JTextField ruaTextField;
+    private javax.swing.JPasswordField senhaTextField;
     
     
     //Inicia os componentes
     private void initComponents() {
-
-        rua_TextField = new javax.swing.JTextField();
-        rua_TextField.setName("rua");
         
-        razao_social_TextField = new javax.swing.JTextField();
-        razao_social_TextField.setName("razão social");
-
-        bairro_TextField = new javax.swing.JTextField();
-        bairro_TextField.setName("bairro");
-
-        estado_TextField = new javax.swing.JTextField();
-		estado_TextField.setName("estado");        
         
-        cidade_TextField = new javax.swing.JTextField();
-        cidade_TextField.setName("cidade");
-
-        cnpj_TextField = new javax.swing.JTextField();
-        cnpj_TextField.setName("cnpj");
-
-        cadastrar_nova_loja = new javax.swing.JButton();
-        cadastrar_nova_loja.setBorder(new RoundedBorder(20));
+        cnpjTextField = new javax.swing.JTextField();
+        cnpjTextField.setName("cnpj");
         
+        razaoSocialTextField = new javax.swing.JTextField();
+        razaoSocialTextField.setName("razão social");
+        
+        senhaTextField = new javax.swing.JPasswordField();
+        senhaTextField.setName("senha");
+        
+        ruaTextField = new javax.swing.JTextField();
+        ruaTextField.setName("rua");
+        
+        bairroTextField = new javax.swing.JTextField();
+        bairroTextField.setName("bairro");
+        
+        cidadeTextField = new javax.swing.JTextField();
+        cidadeTextField.setName("cidade");
+        
+        estadoTextField = new javax.swing.JTextField();
+        estadoTextField.setName("estado");
+        
+        
+        cadastrarNovaLoja = new javax.swing.JButton();
+        cadastrarNovaLoja.setBorder(new RoundedBorder(20));
+
         
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -81,23 +84,144 @@ final class CadastroNovaLoja extends JFrame{
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         
         
-
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent we){
+                cnpjTextField.setText("");
+                senhaTextField.setText("");
+                ruaTextField.setText("");
+                bairroTextField.setText("");
+                estadoTextField.setText("");
+                cidadeTextField.setText("");
+                razaoSocialTextField.setText("");
                 Login.getInstance().setVisible(true);
             }
         });
         setTitle("Cadastrar nova loja");
-        setMaximumSize(new java.awt.Dimension(554, 395));
         
-        cadastrar_nova_loja.addActionListener(new java.awt.event.ActionListener(){
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel1.setText("Digite o cnpj da empresa (somente números):");
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel2.setText("Informe a sua senha:");
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel3.setText("Informações sobre o endereço:");
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel4.setText("Rua:");
+
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel5.setText("Bairro:");
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel6.setText("Cidade:");
+
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel7.setText("Estado:");
+
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel8.setText("Informe a razão social:");
+
+        cnpjTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt){
                 try{
-                    cadastrar_nova_loja_ActionPerformed(evt);
+                    cnpjTextFieldActionPerformed(evt);
+                }catch(InvalidTextException e){
+                    System.out.println(e.getMessage());
+                } catch (CNPJException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+
+        razaoSocialTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    razaoSocialTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (CNPJException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+
+        senhaTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    senhaTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (CNPJException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+
+        ruaTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    ruaTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (CNPJException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+
+        bairroTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    bairroTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (CNPJException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+
+        cidadeTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    cidadeTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (CNPJException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+
+        estadoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    estadoTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (CNPJException ex) {
+                
+                }
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        jLabel9.setText("Cadastro");
+
+        cadastrarNovaLoja.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        cadastrarNovaLoja.setText("Cadastrar");
+        cadastrarNovaLoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try{
+                    cadastrarNovaLojaActionPerformed(evt);
                 }catch(InvalidTextException e){
                     System.out.println(e);
                 } catch (CNPJException ex) {
@@ -105,58 +229,6 @@ final class CadastroNovaLoja extends JFrame{
                 }
             }
         });
-        
-        rua_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rua_TextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Informe a razão social:");
-
-        razao_social_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                razao_social_TextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Informações relacionadas ao endereço:");
-
-        jLabel3.setText("Rua:");
-
-        jLabel4.setText("Bairro:");
-
-        bairro_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bairro_TextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Cidade:");
-
-        estado_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                estado_TextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Estado:");
-
-        cidade_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cidade_TextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Informe o CNPJ da loja:");
-
-        cnpj_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cnpj_TextFieldActionPerformed(evt);
-            }
-        });
-
-        cadastrar_nova_loja.setText("Cadastrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,61 +237,76 @@ final class CadastroNovaLoja extends JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
+                        .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cnpj_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addComponent(razaoSocialTextField)
+                                .addComponent(cnpjTextField)
+                                .addComponent(senhaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(47, 47, 47)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ruaTextField)
+                                        .addComponent(bairroTextField)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel6)
+                                                .addComponent(jLabel5)
+                                                .addComponent(jLabel4)
+                                                .addComponent(jLabel7))
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(cidadeTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(estadoTextField))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(rua_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(bairro_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(estado_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(cidade_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(razao_social_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
+                                .addGap(99, 99, 99)
+                                .addComponent(jLabel9))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(cadastrar_nova_loja, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addGap(97, 97, 97)
+                        .addComponent(cadastrarNovaLoja, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(razao_social_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(razaoSocialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cnpj_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
+                .addGap(7, 7, 7)
+                .addComponent(cnpjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(13, 13, 13)
-                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rua_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(senhaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bairro_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(ruaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cidade_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(bairroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(estado_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cidadeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(estadoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cadastrar_nova_loja, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(cadastrarNovaLoja, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -227,55 +314,76 @@ final class CadastroNovaLoja extends JFrame{
     
     
     //Eventos
-    private void rua_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        
+    private void senhaTextFieldActionPerformed(java.awt.event.ActionEvent evt)throws InvalidTextException,CNPJException {                                               
+        cadastrarNovaLojaActionPerformed(evt);
+    }                                              
+
+    private void razaoSocialTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException{                                                     
+        cadastrarNovaLojaActionPerformed(evt);
+    }                                                    
+
+    private void cnpjTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException {                                              
+        cadastrarNovaLojaActionPerformed(evt);
     }                                             
 
-    private void razao_social_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
-    }                                                      
+    private void ruaTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException{                                             
+        cadastrarNovaLojaActionPerformed(evt);
+    }                                            
 
-    private void bairro_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
-    }                                                
-
-    private void estado_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
-    }                                                
-
-    private void cidade_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
-    }                                                
-
-    private void cnpj_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
-    }
+    private void bairroTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException {                                                
+        cadastrarNovaLojaActionPerformed(evt);
+    }                                               
     
-    private void cadastrar_nova_loja_ActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException{
+    private void cidadeTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException {                                                
+        cadastrarNovaLojaActionPerformed(evt);
+    }                                               
+
+    private void estadoTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException {                                                
+        cadastrarNovaLojaActionPerformed(evt);
+    }                                               
+
+    /**
+    * Cadastra uma nova loja inserido esta no banco de dados
+    * @param evt Evento que será acionado
+    * @throws InvalidTextException e CNPJ Exception
+    */
+    private void cadastrarNovaLojaActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException,CNPJException{                                                  
         Endereco end;
         Loja loja;
-        String razao_social = getTextField(razao_social_TextField);
-        String cnpj = getTextField(cnpj_TextField);
-       	String rua = getTextField(rua_TextField);
-      	String bairro = getTextField(bairro_TextField);
-      	String cidade = getTextField(cidade_TextField);
-      	String estado = getTextField(estado_TextField);
-
-      	try{
+        try{
+            String razao_social = getTextField(razaoSocialTextField);
+            String cnpj = getTextField(cnpjTextField);
+            String rua = getTextField(ruaTextField);
+            String bairro = getTextField(bairroTextField);
+            String cidade = getTextField(cidadeTextField);
+            String estado = getTextField(estadoTextField);
+            String senha = getTextField(senhaTextField);
+            
             Loja.validarCNPJ(cnpj);
+            
+            end = new Endereco(rua,bairro,cidade,estado);
+            loja = new Loja(razao_social,cnpj,senha,end);
+            
+            Cadastrar.createLoja(loja);
+            
       	}catch(CNPJException e){
-            System.out.println(e.getMessage());
-      	}
-      	end = new Endereco(rua,bairro,cidade,estado);
-      	loja = new Loja(razao_social,cnpj,end);
-        
-        Cadastrar.create(loja);
+            new GUIException(e.getMessage());
+      	}catch(InvalidTextException e){
+            new GUIException(e.getMessage());
+        }
+      	
         
     }
-    
+   
+    /**
+    * 
+    * Pega os textos que estão presentes nos "Texts Fields"
+    * @param textField TextField que será analisado a fim de retornar o texto presente nele
+    * @return Retorna o texto presente no textfield analisado 
+    */
     private String getTextField(JTextField textField) throws InvalidTextException{
         if(textField.getText().length() == 0){
-            throw new InvalidTextException("O nome da " + textField.getName() + " não pode ser vazio");
+            throw new InvalidTextException("O campo:  " + textField.getName() + " não pode ser vazio");
         }
         
         return textField.getText();

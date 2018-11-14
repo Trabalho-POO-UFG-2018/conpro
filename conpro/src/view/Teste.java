@@ -33,7 +33,7 @@ public class Teste {
         novoEndereco = new Endereco(rua, bairro, cidade, estado);
         novaLoja = new Loja(razaoSocial, cnpj, senha, novoEndereco);
             
-        cadastro.create(novaLoja);
+        cadastro.createLoja(novaLoja);
 
     }
     

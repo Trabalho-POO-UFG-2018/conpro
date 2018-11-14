@@ -21,7 +21,8 @@ public class Loja {
 		this.cnpj = cnpj;
 		this.senha = senha;
 		this.endereco = endereco;
-	}	
+	}
+        
 		
 	//setters e getters
 	public void setRazaoSocial(String razaoSocial){
@@ -53,7 +54,10 @@ public class Loja {
     }
     
     //metodos
-	public static void validarCNPJ(String cnpj) throws CNPJException{
+    public static void validarCNPJ(String cnpj) throws CNPJException{
+        if(cnpj.length() != 14)
+            throw new CNPJException("O cnpj digitado não possui um formato válido");
+        
         int[] primeira_etapa = {5,4,3,2,9,8,7,6,5,4,3,2};// 12 digitos
         int[] segunda_etapa = {6,5,4,3,2,9,8,7,6,5,4,3,2};// 13 digitos
         int primeiro_digito = 0;

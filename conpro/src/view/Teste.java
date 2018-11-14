@@ -34,21 +34,36 @@ public class Teste {
         novaLoja = new Loja(razaoSocial, cnpj, senha, novoEndereco);
             
         cadastro.createLoja(novaLoja);
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 475c84b16fcc6c48357d59cd346d188f9794f30e
 
     }
     
     public static void login(){
     	
-        String usuario;
-        String senha;
+        String cnpj = "000.000.000-00";
+        String senha = "123";
+        Loja logLoja = null;
+        Produto produto;
         Scanner ler = new Scanner(System.in);
         Cadastrar cadastrar = new Cadastrar();
-        System.out.print("LOGIN\nUsuario: ");
-        usuario = ler.nextLine();
+        System.out.print("LOGIN\nCNPJ: ");
+        //cnpj = ler.nextLine();
         System.out.print("Senha: ");
-        senha = ler.nextLine();
-        if(cadastrar.checkLogin(usuario, senha)){
-           System.out.println("Sucesso");
+        //senha = ler.nextLine();
+        if(cadastrar.checkLogin(cnpj, senha)){
+        	logLoja = cadastrar.obterLoja(cnpj);
+        	if(logLoja != null){
+        		produto = new Produto("pão", 10, 6.50);
+            	cadastrar.cadastrarProduto(logLoja, produto);
+        	} else {
+        		
+        		 System.out.println("Falha ao realizar o Login");
+        	}
+        	
+        	System.out.println(logLoja.getCnpj());
        } else {
            System.out.println("Falha ao realizar o Login");
        }
@@ -57,7 +72,15 @@ public class Teste {
     
     
     public static void main(String[] args){
-    	int flag = 1;
+    	
+    	
+        Cadastrar cadastrar = new Cadastrar();
+    	
+        login();
+        
+        
+        /*
+        int flag = 1;
     	Scanner ler = new Scanner(System.in);
     	while(flag != 0){
     		System.out.print("MENU\n");
@@ -70,5 +93,7 @@ public class Teste {
     			
     		}
     	}
+    	*/
     }
+    	
 }

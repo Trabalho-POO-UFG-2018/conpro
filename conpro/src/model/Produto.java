@@ -7,8 +7,7 @@ public class Produto {
 	private double preco;
 	
 	//construtor
-	public Produto(int codigo, String nome, int quantidade, double preco){
-		this.codigo = codigo;
+	public Produto(String nome, int quantidade, double preco){
 		this.nome = nome;
 		this.quantidade = quantidade;
 		this.preco = preco;
@@ -45,5 +44,8 @@ public class Produto {
 
 	public double getPreco(){
 		return this.preco;
+	}
+	public String toString(){
+		return "Codigo: " + this.codigo + "Nome: "+ this.nome + "Quantidade "+ this.quantidade + "Preco: " + this.preco;
 	}
 }

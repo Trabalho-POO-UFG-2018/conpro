@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public final class Plataforma extends JFrame{
     //Instância do Singleton
@@ -33,7 +34,8 @@ public final class Plataforma extends JFrame{
     }                                              
 
     private void adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
+        AdicionarProduto.getInstance().setVisible(true);
+        Plataforma.getInstance().setVisible(false);
     }                                                
 
     private void consultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {                                                 
@@ -50,10 +52,11 @@ public final class Plataforma extends JFrame{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Plataforma");
-
-        nomeLojaJLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        
         nomeLojaJLabel.setText("");
-
+        nomeLojaJLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        
+        
         adicionarProduto.setText("Adicionar Produto");
         adicionarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,8 +90,8 @@ public final class Plataforma extends JFrame{
                     .addComponent(adicionarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(120, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(nomeLojaJLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nomeLojaJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,6 +114,6 @@ public final class Plataforma extends JFrame{
     
     //Setter
     public void setTextNomeLoja(String nomeDaLoja) {
-        this.nomeLojaJLabel.setText(nomeDaLoja);
+        instance.setTitle(nomeDaLoja);
     }
 }

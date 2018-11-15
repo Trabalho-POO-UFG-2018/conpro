@@ -80,7 +80,7 @@ public class Cadastrar{
 		
     }
     
-    public void cadastrarProduto(Loja loja, Produto produto){
+    public static void cadastrarProduto(Loja loja, Produto produto){
 
     	Connection con = ConnectionDB.getConnection();
 		PreparedStatement stmt = null;

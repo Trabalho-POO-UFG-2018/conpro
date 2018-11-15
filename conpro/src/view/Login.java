@@ -16,7 +16,7 @@ public class Login extends JFrame{
     private static Login instancia;
     
     //Variáveis do JFrame
-    private javax.swing.JTextField cnpjLogin;
+    private static javax.swing.JTextField cnpjLogin;
     private javax.swing.JButton criarNovaConta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -163,7 +163,7 @@ public class Login extends JFrame{
         //Tenta capturar o cnpj e senha dos textfield e validá-los
         try{
             cnpjDigitado = ControladorDeJanelas.getTextField(cnpjLogin);    
-            senhaDigitada = ControladorDeJanelas.getTextField(senhaLogin);
+            senhaDigitada = String.valueOf(ControladorDeJanelas.getTextField(senhaLogin).hashCode());
             isLoged = Cadastrar.checkLogin(cnpjDigitado, senhaDigitada);
         }catch(InvalidTextException e){
             new GUIException(e.getMessage());
@@ -198,6 +198,11 @@ public class Login extends JFrame{
         CadastroNovaLoja cnl = CadastroNovaLoja.getInstance();
         cnl.setVisible(true);
         this.setVisible(false);
+    }
+    
+    //Outros métodos
+    public static String getCNPJ() throws InvalidTextException{
+        return ControladorDeJanelas.getTextField(cnpjLogin);
     }
     
 }

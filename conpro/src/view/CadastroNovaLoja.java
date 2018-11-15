@@ -359,7 +359,7 @@ public final class CadastroNovaLoja extends JFrame{
             String bairro = ControladorDeJanelas.getTextField(bairroTextField);
             String cidade = ControladorDeJanelas.getTextField(cidadeTextField);
             String estado = ControladorDeJanelas.getTextField(estadoTextField);
-            String senha = ControladorDeJanelas.getTextField(senhaTextField);
+            String senha = String.valueOf(ControladorDeJanelas.getTextField(senhaTextField).hashCode());
             
             Loja.validarCNPJ(cnpj);
             

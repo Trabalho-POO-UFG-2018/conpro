@@ -109,7 +109,9 @@ public class Cadastrar{
 			stmt.setInt(2, produto.getCodigo());
 			stmt.setInt(3, produto.getQuantidade());
 			stmt.setDouble(4, produto.getPreco());
-			
+                        //Adicionado por Matheus
+                        stmt.execute();
+                        
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

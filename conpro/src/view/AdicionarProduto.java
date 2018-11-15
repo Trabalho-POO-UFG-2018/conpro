@@ -70,6 +70,11 @@ public class AdicionarProduto extends JFrame{
             Loja loja = Cadastrar.obterLoja(Login.getCNPJ());
             Cadastrar.cadastrarProduto(loja, p);
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            instancia.setVisible(false);
+            instancia.nomeProdutoTextField.setText("");
+            instancia.precoTextField.setText("");
+            instancia.quantidadeSlider.setValue(50);
+            Plataforma.getInstance().setVisible(true);
         }
         
     }

@@ -36,7 +36,7 @@ public final class TelaInicial extends JFrame{
         //Controla o fechamento da janela
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
-        setTitle("Inicio");
+        setTitle("conpro");
         setMinimumSize(new Dimension(500,500));
 
         loja.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -96,7 +96,8 @@ public final class TelaInicial extends JFrame{
     }
     
     private void clienteActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
+        ClienteConsulta.getInstance().setVisible(true);
+        instancia.setVisible(false);
     }
     
     //Variáveis do JFrame;

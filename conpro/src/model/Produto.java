@@ -46,6 +46,6 @@ public class Produto {
 		return this.preco;
 	}
 	public String toString(){
-		return "Codigo: " + this.codigo + "Nome: "+ this.nome + "Quantidade "+ this.quantidade + "Preco: " + this.preco;
+		return "Codigo:" + this.codigo + " Nome:"+ this.nome + " Quantidade:"+ this.quantidade + " Preco:" + this.preco;
 	}
 }

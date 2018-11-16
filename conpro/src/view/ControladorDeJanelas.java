@@ -1,12 +1,20 @@
 package view;
 
 
+import connection.Cadastrar;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import model.Loja;
+import model.Produto;
 
 public class ControladorDeJanelas{
     public static void main(String[] args) throws IOException,Exception {
+        
+        
         TelaInicial inicio = TelaInicial.getInstance();
         inicio.setVisible(true);
         
@@ -45,5 +53,29 @@ public class ControladorDeJanelas{
             
         
         return Double.parseDouble(textField.getText());
+    }
+    
+    public static void fillTable(JTable table, ArrayList<Produto> produtos) throws SQLException{
+        Loja l;
+        int id_loja;
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        //Insere na tabela
+        for(int i = 0; i < produtos.size();i++){
+            id_loja = Cadastrar.obterIdLoja(produtos.get(i));
+            System.out.println(id_loja);
+            l = Cadastrar.obterLoja(id_loja);
+            dtm.addRow(new Object[]{produtos.get(i).getNome(),produtos.get(i).getQuantidade()
+                , produtos.get(i).getPreco(),l.getRazaoSocial()});
+    
+        }
+    }
+    
+    public static void clearRows(JTable table){
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        //Limpa a tabela antes de outra pesquisa
+        int rows = dtm.getRowCount(); 
+        for(int i = rows - 1; i >=0; i--){
+           dtm.removeRow(i); 
+        }
     }
 }

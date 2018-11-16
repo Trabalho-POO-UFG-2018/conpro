@@ -373,10 +373,20 @@ public final class CadastroNovaLoja extends JFrame{
       	}catch(InvalidTextException e){
             new GUIException(e.getMessage());
         }
-      	if(flag)
+      	if(flag){
             JOptionPane.showMessageDialog(null, "Loja criada com sucesso!\nVocê já pode logar em sua conta", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            instancia.setVisible(false);
-            Login.getInstance().setVisible(true);
+        }    
+        instancia.setVisible(false);
+        Login.getInstance().setVisible(true);
+        
+        instancia.bairroTextField.setText("");
+        instancia.cidadeTextField.setText("");
+        instancia.cnpjTextField.setText("");
+        instancia.estadoTextField.setText("");
+        instancia.razaoSocialTextField.setText("");
+        instancia.ruaTextField.setText("");
+        instancia.senhaTextField.setText("");
+        
     }
    
     /**

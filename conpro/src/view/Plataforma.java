@@ -10,7 +10,7 @@ public final class Plataforma extends JFrame{
     
     //Variáveis do JFrame
     private javax.swing.JButton adicionarProduto;
-    private javax.swing.JButton alterarProduto;
+    private javax.swing.JButton alterar;
     private javax.swing.JButton consultarProduto;
     private javax.swing.JLabel nomeLojaJLabel;
     
@@ -29,8 +29,9 @@ public final class Plataforma extends JFrame{
     
     
     //Eventos
-    private void alterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+    private void alterarActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        Alterar.getInstance().setVisible(true);
+        instance.setVisible(false);
     }                                              
 
     private void adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {                                                 
@@ -47,7 +48,7 @@ public final class Plataforma extends JFrame{
 
         nomeLojaJLabel = new javax.swing.JLabel();
         adicionarProduto = new javax.swing.JButton();
-        alterarProduto = new javax.swing.JButton();
+        alterar = new javax.swing.JButton();
         consultarProduto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,10 +65,10 @@ public final class Plataforma extends JFrame{
             }
         });
 
-        alterarProduto.setText("Alterar Produto");
-        alterarProduto.addActionListener(new java.awt.event.ActionListener() {
+        alterar.setText("Alterar");
+        alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alterarProdutoActionPerformed(evt);
+                alterarActionPerformed(evt);
             }
         });
 
@@ -85,7 +86,7 @@ public final class Plataforma extends JFrame{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(120, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(alterarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(consultarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(adicionarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(120, Short.MAX_VALUE))
@@ -100,7 +101,7 @@ public final class Plataforma extends JFrame{
                 .addContainerGap()
                 .addComponent(nomeLojaJLabel)
                 .addGap(58, 58, 58)
-                .addComponent(alterarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(adicionarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)

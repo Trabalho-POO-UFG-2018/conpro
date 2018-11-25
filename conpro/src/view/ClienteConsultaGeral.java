@@ -1,6 +1,6 @@
 package view;
 
-import connection.Cadastrar;
+import controller.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Produto;
 
-public class ClienteConsulta extends JFrame{
+public class ClienteConsultaGeral extends JFrame{
     //Variáveis do JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -20,16 +20,16 @@ public class ClienteConsulta extends JFrame{
     private javax.swing.JButton searchButton;
     
     //Instancia Singleton
-    private static ClienteConsulta instancia;
+    private static ClienteConsultaGeral instancia;
     
     //Singleton
-    private ClienteConsulta(){
+    private ClienteConsultaGeral(){
         initComponents();
     }
     
-    public static ClienteConsulta getInstance(){
+    public static ClienteConsultaGeral getInstance(){
         if(instancia == null)
-            instancia = new ClienteConsulta();
+            instancia = new ClienteConsultaGeral();
         return instancia;
     }
     
@@ -40,7 +40,7 @@ public class ClienteConsulta extends JFrame{
             String query;
             ArrayList<Produto> produtos = new ArrayList<>();
             query = ControladorDeJanelas.getTextField(pesquisaTextField);
-            produtos = Cadastrar.obterProdutos(query);
+            produtos = ProdutoDAO.obterProdutos(query);
             if(produtos.size() <= 0){
                 JOptionPane.showMessageDialog(null, "Nenhum produto encontrado!", "Lamentamos", JOptionPane.WARNING_MESSAGE);
             }else{
@@ -51,7 +51,8 @@ public class ClienteConsulta extends JFrame{
         }    
     }                                            
 
-    private void pesquisaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+    private void pesquisaTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException, SQLException {                                                  
+        searchButtonActionPerformed(evt);
     }
     
     //Inicia os componentes
@@ -69,7 +70,9 @@ public class ClienteConsulta extends JFrame{
         addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent we){
-                TelaInicial.getInstance().setVisible(true);
+                PonteCliente.getInstance().setVisible(true);
+                ControladorDeJanelas.clearRows(jTable1);
+                pesquisaTextField.setText("");
                 instancia.setVisible(false);
             }
         });
@@ -102,7 +105,13 @@ public class ClienteConsulta extends JFrame{
 
         pesquisaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesquisaTextFieldActionPerformed(evt);
+                try {
+                    pesquisaTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(ClienteConsultaGeral.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteConsultaGeral.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -112,9 +121,9 @@ public class ClienteConsulta extends JFrame{
                 try {
                     searchButtonActionPerformed(evt);
                 } catch (InvalidTextException ex) {
-                    Logger.getLogger(ClienteConsulta.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ClienteConsultaGeral.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ClienteConsulta.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ClienteConsultaGeral.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

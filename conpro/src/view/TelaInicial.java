@@ -96,7 +96,7 @@ public final class TelaInicial extends JFrame{
     }
     
     private void clienteActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        ClienteConsulta.getInstance().setVisible(true);
+        PonteCliente.getInstance().setVisible(true);
         instancia.setVisible(false);
     }
     

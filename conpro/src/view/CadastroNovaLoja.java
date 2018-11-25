@@ -3,11 +3,8 @@ package view;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import model.*;
-import connection.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import controller.*;
 import javax.swing.JOptionPane;
 
 public final class CadastroNovaLoja extends JFrame{
@@ -366,7 +363,7 @@ public final class CadastroNovaLoja extends JFrame{
             end = new Endereco(rua,bairro,cidade,estado);
             loja = new Loja(razao_social,cnpj,senha,end);
             
-            Cadastrar.createLoja(loja);
+            LojaDAO.createLoja(loja);
             flag = true;
       	}catch(CNPJException e){
             new GUIException(e.getMessage());

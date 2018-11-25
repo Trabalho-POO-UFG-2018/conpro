@@ -1,9 +1,11 @@
 package view;
 
 
-import connection.Cadastrar;
+import controller.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ChangeListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -41,12 +43,12 @@ public class AdicionarProduto extends JFrame{
     }
     
     //Eventos
-    private void nomeProdutoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        
+    private void nomeProdutoTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                                     
+        cadastrarNovoProdutoButtonActionPerformed(evt);
     }                                                    
 
-    private void precoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        
+    private void precoTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                               
+        cadastrarNovoProdutoButtonActionPerformed(evt);
     }
     
     private void cadastrarNovoProdutoButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException{                                                           
@@ -67,8 +69,8 @@ public class AdicionarProduto extends JFrame{
         }
         if(flag){
             p = new Produto(nome,quantidade,preco);
-            Loja loja = Cadastrar.obterLoja(Login.getCNPJ());
-            Cadastrar.cadastrarProduto(loja, p);
+            Loja loja = LojaDAO.obterLoja(Login.getCNPJ());
+            ProdutoDAO.cadastrarProduto(loja, p);
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             instancia.setVisible(false);
             instancia.nomeProdutoTextField.setText("");
@@ -122,7 +124,11 @@ public class AdicionarProduto extends JFrame{
 
         nomeProdutoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeProdutoTextFieldActionPerformed(evt);
+                try {
+                    nomeProdutoTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(AdicionarProduto.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -137,7 +143,11 @@ public class AdicionarProduto extends JFrame{
 
         precoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                precoTextFieldActionPerformed(evt);
+                try {
+                    precoTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(AdicionarProduto.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 

@@ -1,7 +1,7 @@
 package view;
 
 
-import connection.Cadastrar;
+import controller.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,13 +57,12 @@ public class ControladorDeJanelas{
     
     public static void fillTable(JTable table, ArrayList<Produto> produtos) throws SQLException{
         Loja l;
-        int id_loja;
+        ArrayList<Integer> id_loja = LojaDAO.obterIdLoja(produtos.get(1));
         DefaultTableModel dtm = (DefaultTableModel) table.getModel();
         //Insere na tabela
         for(int i = 0; i < produtos.size();i++){
-            id_loja = Cadastrar.obterIdLoja(produtos.get(i));
             System.out.println(id_loja);
-            l = Cadastrar.obterLoja(id_loja);
+            l = LojaDAO.obterLoja(id_loja.get(i));
             dtm.addRow(new Object[]{produtos.get(i).getNome(),produtos.get(i).getQuantidade()
                 , produtos.get(i).getPreco(),l.getRazaoSocial()});
     

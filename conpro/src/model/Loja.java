@@ -9,10 +9,7 @@ public class Loja {
         private String cnpj;
         private String senha;
 	private Endereco endereco;
-	//private ArrayList<Produto> listaProdutos = new ArrayList();
-        
-        
-       
+	
 	//construtor
 	public Loja(){};
         
@@ -106,5 +103,6 @@ public class Loja {
         }
         
     }
-
+    
+    
 }

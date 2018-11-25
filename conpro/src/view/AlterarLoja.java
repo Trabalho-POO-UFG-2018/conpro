@@ -1,6 +1,6 @@
 package view;
 
-import connection.Cadastrar;
+import controller.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
@@ -42,26 +42,32 @@ public class AlterarLoja extends JFrame{
     }
     
     //Eventos
-    private void newPasswordActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void newPasswordActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                            
+        changeButtonActionPerformed(evt);
     }                                           
 
-    private void confirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void confirmPasswordActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                                
+        changeButtonActionPerformed(evt);
     }                                               
 
-    private void newStreetActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void newStreetActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                          
+        changeButtonActionPerformed(evt);
     }                                         
 
-    private void newNeighbourActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void newNeighbourActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                             
+        changeButtonActionPerformed(evt);
     }                                            
 
-    private void newCityActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    private void newCityActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                        
+        changeButtonActionPerformed(evt);
     }                                       
 
-    private void newStateActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void newStateActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                         
+        changeButtonActionPerformed(evt);
     }                                        
 
     private void changeButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                             
-        Loja loja = Cadastrar.obterLoja(Login.getCNPJ());
+        Loja loja = LojaDAO.obterLoja(Login.getCNPJ());
         Endereco end;
         boolean flag = false;
         
@@ -89,7 +95,7 @@ public class AlterarLoja extends JFrame{
                 loja.setEndereco(end);
                 loja.setSenha(novaSenha);
 
-                Cadastrar.alterarLoja(loja);
+                LojaDAO.alterarLoja(loja);
 
                 flag = true;
             }else{
@@ -160,7 +166,11 @@ public class AlterarLoja extends JFrame{
 
         newPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newPasswordActionPerformed(evt);
+                try {
+                    newPasswordActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(AlterarLoja.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -170,7 +180,11 @@ public class AlterarLoja extends JFrame{
 
         confirmPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmPasswordActionPerformed(evt);
+                try {
+                    confirmPasswordActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(AlterarLoja.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -178,7 +192,11 @@ public class AlterarLoja extends JFrame{
 
         newNeighbour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newNeighbourActionPerformed(evt);
+                try {
+                    newNeighbourActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(AlterarLoja.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -186,7 +204,11 @@ public class AlterarLoja extends JFrame{
 
         newStreet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newStreetActionPerformed(evt);
+                try {
+                    newStreetActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(AlterarLoja.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -196,13 +218,21 @@ public class AlterarLoja extends JFrame{
 
         newState.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newStateActionPerformed(evt);
+                try {
+                    newStateActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(AlterarLoja.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
         newCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newCityActionPerformed(evt);
+                try {
+                    newCityActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(AlterarLoja.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 

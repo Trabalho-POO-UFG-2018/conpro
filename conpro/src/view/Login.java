@@ -1,7 +1,7 @@
 
 package view;
 
-import connection.Cadastrar;
+import controller.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
@@ -164,7 +164,7 @@ public class Login extends JFrame{
         try{
             cnpjDigitado = ControladorDeJanelas.getTextField(cnpjLogin);    
             senhaDigitada = String.valueOf(ControladorDeJanelas.getTextField(senhaLogin).hashCode());
-            isLoged = Cadastrar.checkLogin(cnpjDigitado, senhaDigitada);
+            isLoged = LoginDAO.checkLogin(cnpjDigitado, senhaDigitada);
         }catch(InvalidTextException e){
             new GUIException(e.getMessage());
         }
@@ -177,7 +177,7 @@ public class Login extends JFrame{
             instancia.setVisible(false);
             
             //Obtem a loja que foi logada
-            loja = Cadastrar.obterLoja(cnpjDigitado);
+            loja = LojaDAO.obterLoja(cnpjDigitado);
             
             //Coloca a janela da plataforma visível
             platform = Plataforma.getInstance();

@@ -1,4 +1,4 @@
-package view;
+package view.Empreededor;
 
 
 import controller.*;
@@ -13,6 +13,9 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import model.Loja;
 import model.Produto;
+import view.ControladorDeJanelas;
+import view.Exceptions.GUIException;
+import view.Exceptions.InvalidTextException;
 
 public class AdicionarProduto extends JFrame{
     //Instância

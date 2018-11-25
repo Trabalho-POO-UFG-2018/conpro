@@ -1,5 +1,7 @@
 package view;
 
+import view.Cliente.PonteCliente;
+import view.Empreededor.Login;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;

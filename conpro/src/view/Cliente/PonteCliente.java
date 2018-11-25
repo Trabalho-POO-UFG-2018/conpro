@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.Cliente;
 
+import view.Cliente.ClienteConsultaEspecifica;
+import view.Cliente.ClienteConsultaGeral;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import view.TelaInicial;
 
 /**
  *
@@ -40,7 +43,8 @@ public class PonteCliente extends JFrame{
     }                                        
 
     private void consultaEspecificaActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        ClienteConsultaEspecifica.getInstance().setVisible(true);
+        instancia.setVisible(false);
     }     
     
     //Inicia os componentes                     

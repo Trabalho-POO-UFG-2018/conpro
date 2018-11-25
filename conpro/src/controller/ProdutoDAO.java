@@ -244,5 +244,33 @@ public class ProdutoDAO {
 		}
 	}
 	
+        
+        //Matheus
+        public static ArrayList<Produto> obterProdutos(int loja_id) {
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet rs;
+            Produto p;
+            ArrayList<Produto> produtos = new ArrayList<>();
+            try {
+                stmt = con.prepareStatement("SELECT * FROM loja_produto WHERE id_loja = ?");
+                stmt.setInt(1, loja_id);
+                rs = stmt.executeQuery();
+                // Percorre a lista de produtos do BD para adicionar em um array
+                // list
+                while (!rs.isLast()) {
+                        rs.next();
+                        p = new Produto(rs.getString("nome_produto"), rs.getInt("qtde"), rs.getDouble("preco"));
+                        System.out.println(p);
+                        p.setCodigo(rs.getInt("id_produto"));
+                        produtos.add(p);
+                }
+            } catch (SQLException e) {
+                e.getMessage();
+            } finally {
+                ConnectionFactory.closeConnection(con, stmt);
+                return produtos;
+            }
+	}
 	
 }

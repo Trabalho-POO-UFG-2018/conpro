@@ -1,6 +1,7 @@
 package view;
 
 
+import view.Exceptions.InvalidTextException;
 import controller.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -57,7 +58,7 @@ public class ControladorDeJanelas{
     
     public static void fillTable(JTable table, ArrayList<Produto> produtos) throws SQLException{
         Loja l;
-        ArrayList<Integer> id_loja = LojaDAO.obterIdLoja(produtos.get(1));
+        ArrayList<Integer> id_loja = LojaDAO.obterIdLoja(produtos.get(0));
         DefaultTableModel dtm = (DefaultTableModel) table.getModel();
         //Insere na tabela
         for(int i = 0; i < produtos.size();i++){
@@ -65,6 +66,17 @@ public class ControladorDeJanelas{
             l = LojaDAO.obterLoja(id_loja.get(i));
             dtm.addRow(new Object[]{produtos.get(i).getNome(),produtos.get(i).getQuantidade()
                 , produtos.get(i).getPreco(),l.getRazaoSocial()});
+    
+        }
+    }
+    
+    public static void fillTableEmp(JTable table, ArrayList<Produto> produtos) throws SQLException{
+        Loja l;
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        //Insere na tabela
+        for(int i = 0; i < produtos.size();i++){
+            dtm.addRow(new Object[]{produtos.get(i).getNome(),produtos.get(i).getQuantidade()
+                , produtos.get(i).getPreco()});
     
         }
     }

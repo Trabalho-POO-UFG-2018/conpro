@@ -1,4 +1,4 @@
-package view;
+package view.Cliente;
 
 import controller.*;
 import java.awt.event.WindowAdapter;
@@ -10,6 +10,9 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Produto;
+import view.ControladorDeJanelas;
+import view.Exceptions.GUIException;
+import view.Exceptions.InvalidTextException;
 
 public class ClienteConsultaGeral extends JFrame{
     //Variáveis do JFrame

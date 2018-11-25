@@ -1,6 +1,16 @@
-package view;
+package view.Cliente;
 
+import controller.ProdutoDAO;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import model.Produto;
+import view.ControladorDeJanelas;
+import view.Exceptions.GUIException;
+import view.Exceptions.InvalidTextException;
 
 public class ClienteConsultaEspecifica extends JFrame{
     //Instancia do singleton
@@ -30,8 +40,19 @@ public class ClienteConsultaEspecifica extends JFrame{
     }
     
     //Eventos
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                             
+        ArrayList<Produto> produtos = new ArrayList<>();
+        
+        try{
+            String nome_produto = ControladorDeJanelas.getTextField(pesquisaTextField);
+            String bairro = ControladorDeJanelas.getTextField(neighbourTextField);
+            String cidade = ControladorDeJanelas.getTextField(cityTextField);
+            
+            produtos = ProdutoDAO.obterProdutos(nome_produto);
+            
+        }catch(InvalidTextException e){
+            new GUIException(e.getMessage());
+        }    
     }                                            
 
     private void pesquisaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
@@ -58,9 +79,20 @@ public class ClienteConsultaEspecifica extends JFrame{
         jLabel3 = new javax.swing.JLabel();
         cityTextField = new javax.swing.JTextField();
         neighbourTextField = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent we){
+                cityTextField.setText("");
+                neighbourTextField.setText("");
+                pesquisaTextField.setText("");
+                instancia.setVisible(false);
+                PonteCliente.getInstance().setVisible(true);
+            }
+        });
+        
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,7 +128,11 @@ public class ClienteConsultaEspecifica extends JFrame{
         searchButton.setText("Procurar");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
+                try {
+                    searchButtonActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(ClienteConsultaEspecifica.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 

@@ -1,4 +1,4 @@
-package view;
+package view.Empreededor;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -6,6 +6,10 @@ import javax.swing.JFrame;
 import model.*;
 import controller.*;
 import javax.swing.JOptionPane;
+import view.ControladorDeJanelas;
+import view.Exceptions.GUIException;
+import view.Exceptions.InvalidTextException;
+import view.RoundedBorder;
 
 public final class CadastroNovaLoja extends JFrame{
     //Instância do Singleton

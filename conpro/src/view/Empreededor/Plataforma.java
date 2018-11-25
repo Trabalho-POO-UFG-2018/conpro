@@ -1,5 +1,7 @@
-package view;
+package view.Empreededor;
 
+import view.Empreededor.AdicionarProduto;
+import view.Empreededor.Alterar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -40,7 +42,8 @@ public final class Plataforma extends JFrame{
     }                                                
 
     private void consultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
+        ConsultaProdutos.getInstance().setVisible(true);
+        instance.setVisible(false);
     }
     
     //Inicialização dos componentes

@@ -1,59 +1,66 @@
 package model;
 
+import controller.ProdutoDAO;
 import model.Endereco;
 import java.util.ArrayList;
 
 public class Loja {
-	private int id;
-	private String razaoSocial;
-        private String cnpj;
-        private String senha;
-	private Endereco endereco;
-	
-	//construtor
-	public Loja(){};
-        
-	public Loja(String razaoSocial, String cnpj, String senha, Endereco endereco){
-		this.razaoSocial = razaoSocial;
-		this.cnpj = cnpj;
-		this.senha = senha;
-		this.endereco = endereco;
-	}
-        
-		
-	//setters e getters
-	public void setId(int id){
-		this.id = id;
-	}
-	public int getId(){
-		return this.id;
-	}
-	public void setRazaoSocial(String razaoSocial){
-		this.razaoSocial = razaoSocial;
-	}
-	public String getRazaoSocial(){
-    	return this.razaoSocial;
-	}    
-	public String getCnpj() {
-		return cnpj;
-	}
+    private int id;
+    private String razaoSocial;
+    private String cnpj;
+    private String senha;
+    private Endereco endereco;
 
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
+    private ArrayList<Produto> produtos = new ArrayList<>();
 
-	public String getSenha() {
-		return senha;
-	}
+    //construtor
+    public Loja(){};
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	public void setEndereco(Endereco endereco){
-		this.endereco = endereco;
+    public Loja(String razaoSocial, String cnpj, String senha, Endereco endereco){
+            this.razaoSocial = razaoSocial;
+            this.cnpj = cnpj;
+            this.senha = senha;
+            this.endereco = endereco;
+    }
+
+
+    //setters e getters
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
+    public void setRazaoSocial(String razaoSocial){
+        this.razaoSocial = razaoSocial;
+    }
+    public String getRazaoSocial(){
+        return this.razaoSocial;
+    }    
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    public void setEndereco(Endereco endereco){
+        this.endereco = endereco;
     }   
     public Endereco getEndereco(){
         return this.endereco;
+    }
+    
+    public ArrayList<Produto> getProdutos(){
+        return produtos;
     }
     
     //metodos
@@ -102,6 +109,11 @@ public class Loja {
             
         }
         
+    }
+    
+    public void preencherProdutos(){
+        produtos.clear();
+        this.produtos = ProdutoDAO.obterProdutos(this.id);
     }
     
     

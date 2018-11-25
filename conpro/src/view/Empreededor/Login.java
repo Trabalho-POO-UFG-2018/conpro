@@ -1,6 +1,7 @@
 
-package view;
+package view.Empreededor;
 
+import view.Empreededor.CadastroNovaLoja;
 import controller.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -9,6 +10,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Loja;
+import view.ControladorDeJanelas;
+import view.Exceptions.GUIException;
+import view.Exceptions.InvalidTextException;
+import view.TelaInicial;
 
 public class Login extends JFrame{
     

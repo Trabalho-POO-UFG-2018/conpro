@@ -1,4 +1,4 @@
-package view;
+package view.Empreededor;
 
 import controller.*;
 import java.awt.event.WindowAdapter;
@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Endereco;
 import model.Loja;
+import view.ControladorDeJanelas;
+import view.Exceptions.GUIException;
+import view.Exceptions.InvalidTextException;
 
 public class AlterarLoja extends JFrame{
     //Variáveis do JFrame

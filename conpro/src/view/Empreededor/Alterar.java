@@ -1,10 +1,10 @@
-package view;
+package view.Empreededor;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
-final class Alterar extends JFrame{
+public final class Alterar extends JFrame{
     //Instancia
     private static Alterar instancia;
     

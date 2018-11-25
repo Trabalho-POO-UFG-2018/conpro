@@ -3,12 +3,12 @@ package view;
 import java.awt.*;
 import javax.swing.border.Border;
 
-class RoundedBorder implements Border {
+public class RoundedBorder implements Border {
 
     private int radius;
 
 
-    RoundedBorder(int radius) {
+    public RoundedBorder(int radius) {
         this.radius = radius;
     }
 

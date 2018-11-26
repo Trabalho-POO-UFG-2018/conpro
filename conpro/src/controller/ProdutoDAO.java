@@ -185,63 +185,63 @@ public class ProdutoDAO {
 	 * */
 	
 	public static ArrayList<Loja> produtosCidade(String cidade, String bairro, String nomeProduto){
-	//variaveis
-		String sql;
-		String razaoSocial, cnpj, senha;
-		String atualRua, atualBairro, atualCidade, atualEstado;
-		Endereco endereco;
-		Loja loja;
-		int id_produto = codigoProduto(nomeProduto);
-		int id_loja;
+            //variaveis
+            String sql;
+            String razaoSocial, cnpj, senha;
+            String atualRua, atualBairro, atualCidade, atualEstado;
+            Endereco endereco;
+            Loja loja;
+            int id_produto = codigoProduto(nomeProduto);
+            int id_loja;
 		
 		
-	//variaveis do pacote JDBC
-		Connection con = ConnectionFactory.getConnection();
-		PreparedStatement stmt = null;
-		ResultSet rs;
-		
-		ArrayList<Loja> listaLojas = new ArrayList<Loja>();
-		
-		
-		try {
-			sql = "select * from lojas where cidade = ? and bairro = ?";
-			stmt = con.prepareStatement(sql);
-			stmt.setString(1, cidade);
-			stmt.setString(2, bairro);
-			rs = stmt.executeQuery();
-			
-			while(rs.next()) {
-				//recupera o id da loja no ResultStatement
-				id_loja = rs.getInt("id");
-			
-				//verifica se o produto pertence a loja
-				if(verificaProduto(id_loja, id_produto)) {
-			
-					//recuperando endereco
-					atualRua = rs.getString("rua");
-					atualBairro = rs.getString("bairro");
-					atualCidade = rs.getString("cidade");
-					atualEstado = rs.getString("estado");
-					endereco = new Endereco(atualRua, atualBairro, atualCidade, atualEstado);
-					
-					//recuperando e montando um objeto loja
-					razaoSocial = rs.getString("razao_social");
-					cnpj = rs.getString("cnpj");
-					senha = rs.getString("senha");
-					loja = new Loja(razaoSocial, cnpj, senha, endereco);
-					
-					//salvando no arrayList
-					listaLojas.add(loja);
-				}
-				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			ConnectionFactory.closeConnection(con, stmt);
-			return listaLojas;
-		}
+            //variaveis do pacote JDBC
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet rs;
+
+            ArrayList<Loja> listaLojas = new ArrayList<Loja>();
+
+
+            try {
+                sql = "select * from lojas where cidade = ? and bairro = ?";
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, cidade);
+                stmt.setString(2, bairro);
+                rs = stmt.executeQuery();
+
+                while(rs.next()) {
+                    //recupera o id da loja no ResultStatement
+                    id_loja = rs.getInt("id");
+
+                    //verifica se o produto pertence a loja
+                    if(verificaProduto(id_loja, id_produto)) {
+
+                        //recuperando endereco
+                        atualRua = rs.getString("rua");
+                        atualBairro = rs.getString("bairro");
+                        atualCidade = rs.getString("cidade");
+                        atualEstado = rs.getString("estado");
+                        endereco = new Endereco(atualRua, atualBairro, atualCidade, atualEstado);
+
+                        //recuperando e montando um objeto loja
+                        razaoSocial = rs.getString("razao_social");
+                        cnpj = rs.getString("cnpj");
+                        senha = rs.getString("senha");
+                        loja = new Loja(razaoSocial, cnpj, senha, endereco);
+
+                        //salvando no arrayList
+                        listaLojas.add(loja);
+                    }
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                ConnectionFactory.closeConnection(con, stmt);
+                return listaLojas;
+            }
 	}
 	
         
@@ -272,5 +272,32 @@ public class ProdutoDAO {
                 return produtos;
             }
 	}
+        
+        public static ArrayList<Integer> obterIdLojas(String nome_produto){
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet rs;
+            String sql;
+            ArrayList<Integer> lojas = new ArrayList<>();
+            
+            try {
+                sql = "SELECT * FROM loja_produto WHERE nome_produto = ?";
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, nome_produto);
+                
+                rs = stmt.executeQuery();
+                
+                while(!rs.isLast()){
+                    rs.next();
+                    lojas.add(rs.getInt("id_loja"));
+                }
+                
+            } catch (SQLException e) {
+                e.getMessage();
+            } finally {
+                ConnectionFactory.closeConnection(con, stmt);
+                return lojas;
+            } 
+        }
 	
 }

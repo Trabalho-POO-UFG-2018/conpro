@@ -47,7 +47,7 @@ public class ClienteConsultaGeral extends JFrame{
             if(produtos.size() <= 0){
                 JOptionPane.showMessageDialog(null, "Nenhum produto encontrado!", "Lamentamos", JOptionPane.WARNING_MESSAGE);
             }else{
-                ControladorDeJanelas.fillTable(jTable1, produtos);
+                ControladorDeJanelas.fillTableGeral(jTable1, produtos);
             }
         }catch(InvalidTextException e){
             new GUIException(e.getMessage());

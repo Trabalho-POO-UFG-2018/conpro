@@ -1,51 +1,63 @@
 package model;
 
 public class Produto {
-	private int codigo;
-	private String nome;
-	private int quantidade;
-	private double preco;
+    private int codigo;
+    private String nome;
+    private int quantidade;
+    private double preco;
+    private Loja loja;
+
+    
 	
-	//construtor
-	public Produto(String nome, int quantidade, double preco){
-		this.nome = nome;
-		this.quantidade = quantidade;
-		this.preco = preco;
-	}
+    //construtor
+    public Produto(String nome, int quantidade, double preco){
+            this.nome = nome;
+            this.quantidade = quantidade;
+            this.preco = preco;
+    }
 
-	//setters e getters
-	public void setCodigo(int codigo){
-		this.codigo = codigo;
-	}
+    //setters e getters
+    
+    public Loja getLoja() {
+        return loja;
+    }
 
-	public int getCodigo(){
-		return this.codigo;
-	}
+    public void setLoja(Loja loja) {
+        this.loja = loja;
+    }
+    
+    public void setCodigo(int codigo){
+            this.codigo = codigo;
+    }
 
-	public void setNome(String nome){
-		this.nome = nome;
-	}
+    public int getCodigo(){
+            return this.codigo;
+    }
 
-	public String getNome(){
-		return this.nome;
-	}
+    public void setNome(String nome){
+            this.nome = nome;
+    }
 
-	public void setQuantidade(int quantidade){
-		this.quantidade = quantidade;
-	}
+    public String getNome(){
+            return this.nome;
+    }
 
-	public int getQuantidade(){
-		return this.quantidade;
-	}
+    public void setQuantidade(int quantidade){
+            this.quantidade = quantidade;
+    }
 
-	public void setPreco(double preco){
-		this.preco = preco;
-	}
+    public int getQuantidade(){
+            return this.quantidade;
+    }
 
-	public double getPreco(){
-		return this.preco;
-	}
-	public String toString(){
-		return "Codigo:" + this.codigo + " Nome:"+ this.nome + " Quantidade:"+ this.quantidade + " Preco:" + this.preco;
-	}
+    public void setPreco(double preco){
+            this.preco = preco;
+    }
+
+    public double getPreco(){
+            return this.preco;
+    }
+    public String toString(){
+            return "Codigo:" + this.codigo + " Nome:"+ this.nome + " Quantidade:"+ this.quantidade + " Preco:" + this.preco;
+    }
 }

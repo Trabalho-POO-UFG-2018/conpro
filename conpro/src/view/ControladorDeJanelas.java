@@ -56,7 +56,7 @@ public class ControladorDeJanelas{
         return Double.parseDouble(textField.getText());
     }
     
-    public static void fillTable(JTable table, ArrayList<Produto> produtos) throws SQLException{
+    public static void fillTableGeral(JTable table, ArrayList<Produto> produtos) throws SQLException{
         Loja l;
         ArrayList<Integer> id_loja = LojaDAO.obterIdLoja(produtos.get(0));
         DefaultTableModel dtm = (DefaultTableModel) table.getModel();
@@ -70,14 +70,23 @@ public class ControladorDeJanelas{
         }
     }
     
-    public static void fillTableEmp(JTable table, ArrayList<Produto> produtos) throws SQLException{
-        Loja l;
+    public static void fillTableEmpreendedor(JTable table, ArrayList<Produto> produtos) throws SQLException{
         DefaultTableModel dtm = (DefaultTableModel) table.getModel();
         //Insere na tabela
         for(int i = 0; i < produtos.size();i++){
             dtm.addRow(new Object[]{produtos.get(i).getNome(),produtos.get(i).getQuantidade()
                 , produtos.get(i).getPreco()});
     
+        }
+    }
+    
+    public static void fillTableEspecifica(JTable table, ArrayList<Produto> produtos){
+        clearRows(table);
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        
+        for(int i = 0; i < produtos.size();i++){
+            Produto produto_atual = produtos.get(i);
+            dtm.addRow(new Object[]{produto_atual.getNome(),produto_atual.getQuantidade(),produto_atual.getPreco(),produto_atual.getLoja().getRazaoSocial()});
         }
     }
     

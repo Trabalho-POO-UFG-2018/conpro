@@ -1,10 +1,19 @@
 package view.Empreededor;
 
+import controller.LojaDAO;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import view.Empreededor.AdicionarProduto;
 import view.Empreededor.Alterar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import model.Loja;
+import view.ControladorDeJanelas;
+import view.Exceptions.InvalidTextException;
 
 public final class Plataforma extends JFrame{
     //Instância do Singleton
@@ -31,7 +40,10 @@ public final class Plataforma extends JFrame{
     
     
     //Eventos
-    private void alterarActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void alterarActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException, SQLException {                                               
+        Loja l = LojaDAO.obterLoja(Login.getCNPJ());
+        l.preencherProdutos();
+        ControladorDeJanelas.fillTableEmpreendedor(ConsultaProdutos.getInstance().getJTable(),l.getProdutos());
         Alterar.getInstance().setVisible(true);
         instance.setVisible(false);
     }                                              
@@ -41,8 +53,18 @@ public final class Plataforma extends JFrame{
         Plataforma.getInstance().setVisible(false);
     }                                                
 
-    private void consultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        ConsultaProdutos.getInstance().setVisible(true);
+    private void consultarProdutoActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException, SQLException {                                                 
+        Loja l = LojaDAO.obterLoja(Login.getCNPJ());
+        try{
+            ControladorDeJanelas.clearRows(ConsultaProdutos.getInstance().getJTable());
+            l.preencherProdutos();
+            ControladorDeJanelas.fillTableEmpreendedor(ConsultaProdutos.getInstance().getJTable(),l.getProdutos());
+            ConsultaProdutos.getInstance().setVisible(true);
+        }catch(InvalidTextException e){
+            e.printStackTrace();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         instance.setVisible(false);
     }
     
@@ -54,7 +76,14 @@ public final class Plataforma extends JFrame{
         alterar = new javax.swing.JButton();
         consultarProduto = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent we){
+                Login.getInstance().setVisible(true);
+                instance.setVisible(false);
+            }
+        });
         setTitle("Plataforma");
         
         nomeLojaJLabel.setText("");
@@ -71,14 +100,26 @@ public final class Plataforma extends JFrame{
         alterar.setText("Alterar");
         alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alterarActionPerformed(evt);
+                try {
+                    alterarActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(Plataforma.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Plataforma.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
         consultarProduto.setText("Consultar Produto");
         consultarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarProdutoActionPerformed(evt);
+                try {
+                    consultarProdutoActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(Plataforma.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Plataforma.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 

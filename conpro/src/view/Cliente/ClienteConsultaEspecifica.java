@@ -1,5 +1,6 @@
 package view.Cliente;
 
+import controller.LojaDAO;
 import controller.ProdutoDAO;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -7,6 +8,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import model.Endereco;
+import model.Loja;
 import model.Produto;
 import view.ControladorDeJanelas;
 import view.Exceptions.GUIException;
@@ -42,29 +46,65 @@ public class ClienteConsultaEspecifica extends JFrame{
     //Eventos
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                             
         ArrayList<Produto> produtos = new ArrayList<>();
+        ArrayList<Produto> produtos_validos = new ArrayList<>();
+        String nome_produto_busca;
+        String cidade;
+        String bairro;
+        Loja loja;
+        ArrayList<Integer> lojas;
+        
         
         try{
-            String nome_produto = ControladorDeJanelas.getTextField(pesquisaTextField);
-            String bairro = ControladorDeJanelas.getTextField(neighbourTextField);
-            String cidade = ControladorDeJanelas.getTextField(cityTextField);
+            //Captura os dados dos text fields
+            nome_produto_busca = ControladorDeJanelas.getTextField(pesquisaTextField);
+            cidade = ControladorDeJanelas.getTextField(cityTextField);
+            bairro = ControladorDeJanelas.getTextField(neighbourTextField);
             
-            produtos = ProdutoDAO.obterProdutos(nome_produto);
+            //Captura todos os produtos com o nome no campo do text field
+            produtos = ProdutoDAO.obterProdutos(nome_produto_busca);
             
+            //Obtem as lojas que possuem aquele produto
+            lojas = ProdutoDAO.obterIdLojas(nome_produto_busca);
+            
+            //Atribui a loja a qual pertence para cada produto
+            for(int i = 0; i < produtos.size();i++){
+                loja = LojaDAO.obterLoja(lojas.get(i));
+                produtos.get(i).setLoja(loja);
+            }
+            
+            //Separa os produtos que são válidos
+            for(int i = 0; i < produtos.size();i++){
+                Produto produto_atual = produtos.get(i);
+                Loja loja_atual = produto_atual.getLoja();
+                Endereco endereco_atual = loja_atual.getEndereco();
+                
+                if((endereco_atual.getBairro().compareTo(bairro)) == 0 && 
+                   (endereco_atual.getCidade().compareTo(cidade)) == 0)
+                {
+                    produtos_validos.add(produto_atual);
+                }
+            }
+            
+            if(produtos_validos.size() == 0){
+                JOptionPane.showMessageDialog(null, "Nenhum produto encontrado", "Lamentamos", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                ControladorDeJanelas.fillTableEspecifica(jTable1, produtos_validos);
+            }
         }catch(InvalidTextException e){
             new GUIException(e.getMessage());
         }    
     }                                            
 
-    private void pesquisaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
+    private void pesquisaTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                                  
+        searchButtonActionPerformed(evt);
     }                                                 
 
-    private void cityTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
+    private void cityTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                              
+        searchButtonActionPerformed(evt);
     }                                             
 
-    private void neighbourTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        // TODO add your handling code here:
+    private void neighbourTextFieldActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                                   
+        searchButtonActionPerformed(evt);
     }
     
     //Inicia os componentes
@@ -73,12 +113,17 @@ public class ClienteConsultaEspecifica extends JFrame{
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         pesquisaTextField = new javax.swing.JTextField();
+        pesquisaTextField.setName("pesquisa");
+        
         searchButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cityTextField = new javax.swing.JTextField();
+        cityTextField.setName("cidade");
+        
         neighbourTextField = new javax.swing.JTextField();
+        neighbourTextField.setName("bairro");
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
@@ -121,7 +166,11 @@ public class ClienteConsultaEspecifica extends JFrame{
 
         pesquisaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesquisaTextFieldActionPerformed(evt);
+                try {
+                    pesquisaTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(ClienteConsultaEspecifica.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -144,13 +193,21 @@ public class ClienteConsultaEspecifica extends JFrame{
 
         cityTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cityTextFieldActionPerformed(evt);
+                try {
+                    cityTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(ClienteConsultaEspecifica.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
         neighbourTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                neighbourTextFieldActionPerformed(evt);
+                try {
+                    neighbourTextFieldActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(ClienteConsultaEspecifica.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -209,7 +266,7 @@ public class ClienteConsultaEspecifica extends JFrame{
         );
 
         pack();
-    }// </editor-fold>                        
+    }                       
 
     
 }

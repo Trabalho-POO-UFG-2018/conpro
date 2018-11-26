@@ -180,6 +180,7 @@ public class Login extends JFrame{
             JOptionPane.showMessageDialog(null, "Você se logou com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             //"Fechamento" da janela de login
             instancia.setVisible(false);
+            instancia.senhaLogin.setText("");
             
             //Obtem a loja que foi logada
             loja = LojaDAO.obterLoja(cnpjDigitado);

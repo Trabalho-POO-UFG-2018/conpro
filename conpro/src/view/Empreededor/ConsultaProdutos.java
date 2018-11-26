@@ -5,6 +5,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import model.Loja;
 import view.ControladorDeJanelas;
 import view.Exceptions.InvalidTextException;
@@ -16,13 +17,6 @@ public class ConsultaProdutos extends JFrame{
     //Singleton
     private ConsultaProdutos() throws InvalidTextException, SQLException{
         initComponents();
-        Loja l = LojaDAO.obterLoja(Login.getCNPJ());
-        try{
-            l.preencherProdutos();
-            ControladorDeJanelas.fillTableEmp(jTable1,l.getProdutos());
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
     }
     
     public static ConsultaProdutos getInstance() throws InvalidTextException, SQLException{
@@ -107,6 +101,12 @@ public class ConsultaProdutos extends JFrame{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    
+    //Métodos
+    
+    public JTable getJTable(){
+        return jTable1;
+    }
 }
     
 

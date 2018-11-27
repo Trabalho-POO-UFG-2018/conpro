@@ -98,4 +98,16 @@ public class ControladorDeJanelas{
            dtm.removeRow(i); 
         }
     }
+    
+    public static String getSelectedText(JTable table){
+        int linha = table.getSelectedRow();
+        int coluna = 0;
+        
+        if(linha != -1){
+            return (String) table.getValueAt(linha, coluna);
+        }else{
+            return null;
+        }
+        
+    }
 }

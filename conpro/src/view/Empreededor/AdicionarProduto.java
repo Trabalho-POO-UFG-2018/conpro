@@ -2,6 +2,8 @@ package view.Empreededor;
 
 
 import controller.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
@@ -70,15 +72,22 @@ public class AdicionarProduto extends JFrame{
         }catch(InvalidTextException e){
             new GUIException(e.getMessage());
         }
+        
         if(flag){
             p = new Produto(nome,quantidade,preco);
             Loja loja = LojaDAO.obterLoja(Login.getCNPJ());
-            ProdutoDAO.cadastrarProduto(loja, p);
-            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            instancia.setVisible(false);
-            instancia.nomeProdutoTextField.setText("");
-            instancia.precoTextField.setText("");
-            instancia.quantidadeSlider.setValue(50);
+            if(!ProdutoDAO.verificaProduto(p.getCodigo(), loja.getId())){
+                ProdutoDAO.cadastrarProduto(loja, p);
+                JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                instancia.setVisible(false);
+                instancia.nomeProdutoTextField.setText("");
+                instancia.precoTextField.setText("");
+                instancia.quantidadeSlider.setValue(50);
+            }else{
+                JOptionPane.showMessageDialog(null, "O produto " + nome + " já está cadastrado", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+            
             Plataforma.getInstance().setVisible(true);
         }
         
@@ -86,6 +95,10 @@ public class AdicionarProduto extends JFrame{
     
     //Inicia os componentes
     private void initComponents() {
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
         
         ChangeListener listener;
 

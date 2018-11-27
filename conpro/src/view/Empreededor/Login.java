@@ -1,8 +1,9 @@
 
 package view.Empreededor;
 
-import view.Empreededor.CadastroNovaLoja;
 import controller.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
@@ -26,7 +27,8 @@ public class Login extends JFrame{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton login;
-    private javax.swing.JPasswordField senhaLogin;
+    private static javax.swing.JPasswordField senhaLogin;
+    private javax.swing.JButton excluirLojaButton;
     
     //Singleton
     public static Login getInstance(){
@@ -44,11 +46,18 @@ public class Login extends JFrame{
     
     //Inicia os componentes da tela
     private void initComponents() {
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
+        setResizable(false);
 
         login = new javax.swing.JButton();
         criarNovaConta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        excluirLojaButton = new javax.swing.JButton();
+        excluirLojaButton.setText("Excluir loja");
         
         senhaLogin = new javax.swing.JPasswordField();
         senhaLogin.setName("senha");
@@ -79,7 +88,7 @@ public class Login extends JFrame{
             }
         });
 
-        criarNovaConta.setText("Ainda não tenho conta");
+        criarNovaConta.setText("Não tenho conta");
         criarNovaConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 criarNovaContaActionPerformed(evt);
@@ -109,45 +118,57 @@ public class Login extends JFrame{
                 }
             }
         });
+        
+        excluirLojaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    excluirLojaButtonActionPerformed(evt);
+                } catch (InvalidTextException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2)
-                                .addComponent(senhaLogin)
-                                .addComponent(jLabel1)
-                                .addComponent(cnpjLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
-                            .addGap(134, 134, 134))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(109, 109, 109)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(criarNovaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(cnpjLogin)
+                            .addComponent(senhaLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(criarNovaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(excluirLojaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cnpjLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cnpjLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(senhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(criarNovaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addComponent(login)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(criarNovaConta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(excluirLojaButton)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,9 +227,46 @@ public class Login extends JFrame{
         this.setVisible(false);
     }
     
+    private void excluirLojaButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                         
+        int sucess = 0;
+        try{
+            String cnpj = getCNPJ();
+            String senha = String.valueOf(ControladorDeJanelas.getTextField(senhaLogin).hashCode());
+            Loja loja = LojaDAO.obterLoja(getCNPJ());
+            //Verifica se o cnpj e a senha informada é válida
+            if(LoginDAO.checkLogin(cnpj, senha)){
+                //Pergunta se o empreendedor quer realmente excluir a loja
+                int a = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar a loja " +
+                        loja.getRazaoSocial() + " ?", "Apagar loja ?",JOptionPane.YES_NO_OPTION);
+                if(a == 0){
+                    sucess = LojaDAO.deletarLoja(loja);
+                }
+                
+                if(sucess == 1){
+                    JOptionPane.showMessageDialog(null, "Loja excluída com sucesso", "Sucesso",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Erro ao excluir a loja", "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                
+                }
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "Senha ou usuário inválidos", "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(InvalidTextException e){
+            new GUIException(e.getMessage());
+        }
+    }                                        
+    
     //Outros métodos
     public static String getCNPJ() throws InvalidTextException{
         return ControladorDeJanelas.getTextField(cnpjLogin);
+    }
+    
+    public static void clearPasswordField(){
+        senhaLogin.setText("");
     }
     
 }

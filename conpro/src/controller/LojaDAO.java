@@ -88,6 +88,44 @@ public class LojaDAO {
 		}
 	}
 
+
+	/**Apaga linha da tabela que contem determinada loja, e retorna 1 - sucesso ou 0 - falha
+	 * @param Loja loja
+	 * @return int check
+	 * */
+
+	
+	public static int deletarLoja(Loja loja){
+		Connection con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		String sql;
+		
+		int flag, check = 0;
+		int id_loja = loja.getId();
+		
+		try {
+                        ProdutoDAO.deletarProdutosLoja(loja);
+			sql = "delete from lojas where id = ?";
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, id_loja);
+			flag = stmt.executeUpdate();
+			if(flag == 1){
+				//sucesso em apagar a linha
+				check = 1;
+			} else {
+				//linha nao encontrada
+				check = 0;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionFactory.closeConnection(con, stmt);
+			return check;
+		}
+	}
+
+
 	/**Obter loja apartir de um cnpj, em caso de erro retorna null
 	 * @param String cnpj
 	 * @return Loja loja
@@ -165,9 +203,9 @@ public class LojaDAO {
             ArrayList<Integer> lojas = new ArrayList<>();
             
             try {
-                sql = "SELECT * FROM loja_produto WHERE nome_produto = ?";
+                sql = "SELECT * FROM loja_produto WHERE id_produto = ?";
                 stmt = con.prepareStatement(sql);
-                stmt.setString(1,p.getNome());
+                stmt.setInt(1,p.getCodigo());
                 rs = stmt.executeQuery();
                 while(!rs.isLast()){
                     rs.next();

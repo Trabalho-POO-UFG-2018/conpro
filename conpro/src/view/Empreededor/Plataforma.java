@@ -1,6 +1,8 @@
 package view.Empreededor;
 
 import controller.LojaDAO;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -41,10 +43,10 @@ public final class Plataforma extends JFrame{
     
     //Eventos
     private void alterarActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException, SQLException {                                               
-        Loja l = LojaDAO.obterLoja(Login.getCNPJ());
-        l.preencherProdutos();
-        ControladorDeJanelas.fillTableEmpreendedor(ConsultaProdutos.getInstance().getJTable(),l.getProdutos());
-        Alterar.getInstance().setVisible(true);
+//        Loja l = LojaDAO.obterLoja(Login.getCNPJ());
+//        l.preencherProdutos();
+//        ControladorDeJanelas.fillTableEmpreendedor(ConsultaProdutos.getInstance().getJTable(),l.getProdutos());
+        AlterarLoja.getInstance().setVisible(true);
         instance.setVisible(false);
     }                                              
 
@@ -60,8 +62,6 @@ public final class Plataforma extends JFrame{
             l.preencherProdutos();
             ControladorDeJanelas.fillTableEmpreendedor(ConsultaProdutos.getInstance().getJTable(),l.getProdutos());
             ConsultaProdutos.getInstance().setVisible(true);
-        }catch(InvalidTextException e){
-            e.printStackTrace();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -70,6 +70,10 @@ public final class Plataforma extends JFrame{
     
     //Inicialização dos componentes
     private void initComponents() {
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
 
         nomeLojaJLabel = new javax.swing.JLabel();
         adicionarProduto = new javax.swing.JButton();
@@ -97,7 +101,7 @@ public final class Plataforma extends JFrame{
             }
         });
 
-        alterar.setText("Alterar");
+        alterar.setText("Alterar dados da loja");
         alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {

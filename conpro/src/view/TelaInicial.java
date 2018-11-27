@@ -4,6 +4,7 @@ import view.Cliente.PonteCliente;
 import view.Empreededor.Login;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -30,6 +31,10 @@ public final class TelaInicial extends JFrame{
     
     //Inicia a janela conforme foi configurada
     private void initComponents(){
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
 
         loja = new javax.swing.JButton();
         cliente = new javax.swing.JButton();

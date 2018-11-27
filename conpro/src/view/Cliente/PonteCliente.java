@@ -5,6 +5,8 @@
  */
 package view.Cliente;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import view.Cliente.ClienteConsultaEspecifica;
 import view.Cliente.ClienteConsultaGeral;
 import java.awt.event.WindowAdapter;
@@ -49,7 +51,11 @@ public class PonteCliente extends JFrame{
     
     //Inicia os componentes                     
     private void initComponents() {
-
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
+        
         consultaGeral = new javax.swing.JButton();
         consultaEspecifica = new javax.swing.JButton();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

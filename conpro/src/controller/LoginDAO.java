@@ -11,7 +11,7 @@ import connection.ConnectionFactory;
  * */
 
 public class LoginDAO {
-	/** Realiza a verificacao de login e senha no banco de dados
+		/** Realiza a verificacao de login e senha no banco de dados
 	 * @param cnpj
 	 * @param senha
 	 * @return boolean

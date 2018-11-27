@@ -32,6 +32,7 @@ public class a extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Qual tipo de busca?");
+        setResizable(false);
 
         jButton1.setText("Consulta geral");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

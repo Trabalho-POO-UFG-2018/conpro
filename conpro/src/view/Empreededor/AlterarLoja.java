@@ -1,6 +1,8 @@
 package view.Empreededor;
 
 import controller.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
@@ -128,6 +130,10 @@ public class AlterarLoja extends JFrame{
     
     //Inicia os componentes                          
     private void initComponents() {
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
 
         jPanel1 = new javax.swing.JPanel();
         
@@ -162,7 +168,7 @@ public class AlterarLoja extends JFrame{
         addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent we){
-                Alterar.getInstance().setVisible(true);
+                Plataforma.getInstance().setVisible(true);
             }
         });
         setTitle("Alterar Loja");

@@ -2,6 +2,9 @@ package view.Cliente;
 
 import controller.LojaDAO;
 import controller.ProdutoDAO;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -109,6 +112,10 @@ public class ClienteConsultaEspecifica extends JFrame{
     
     //Inicia os componentes
     private void initComponents() {
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();

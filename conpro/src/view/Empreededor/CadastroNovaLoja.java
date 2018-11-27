@@ -5,6 +5,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import model.*;
 import controller.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import view.ControladorDeJanelas;
 import view.Exceptions.GUIException;
@@ -52,6 +54,8 @@ public final class CadastroNovaLoja extends JFrame{
     //Inicia os componentes
     private void initComponents() {
         
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
         cnpjTextField = new javax.swing.JTextField();
         cnpjTextField.setName("cnpj");
@@ -102,6 +106,7 @@ public final class CadastroNovaLoja extends JFrame{
                 estadoTextField.setText("");
                 cidadeTextField.setText("");
                 razaoSocialTextField.setText("");
+                Login.clearPasswordField();
                 Login.getInstance().setVisible(true);
             }
         });

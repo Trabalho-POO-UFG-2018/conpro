@@ -193,6 +193,7 @@ public class Login extends JFrame{
             isLoged = LoginDAO.checkLogin(cnpjDigitado, senhaDigitada);
         }catch(InvalidTextException e){
             new GUIException(e.getMessage());
+            return ;
         }
         
         //Caso obtenha sucesso em se logar, fecha a janela de login e abre a da plataforma
@@ -225,6 +226,9 @@ public class Login extends JFrame{
         CadastroNovaLoja cnl = CadastroNovaLoja.getInstance();
         cnl.setVisible(true);
         this.setVisible(false);
+        
+        cnpjLogin.setText("");
+        senhaLogin.setText("");
     }
     
     private void excluirLojaButtonActionPerformed(java.awt.event.ActionEvent evt) throws InvalidTextException {                                         
@@ -245,10 +249,11 @@ public class Login extends JFrame{
                 if(sucess == 1){
                     JOptionPane.showMessageDialog(null, "Loja excluída com sucesso", "Sucesso",
                             JOptionPane.INFORMATION_MESSAGE);
+                    cnpjLogin.setText("");
+                    senhaLogin.setText("");
                 }else{
                     JOptionPane.showMessageDialog(null, "Erro ao excluir a loja", "Erro",
                             JOptionPane.ERROR_MESSAGE);
-                
                 }
                 
             }else{

@@ -32,10 +32,8 @@ public final class TelaInicial extends JFrame{
     //Inicia a janela conforme foi configurada
     private void initComponents(){
         
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        setLocationRelativeTo(null);
         
-
         loja = new javax.swing.JButton();
         cliente = new javax.swing.JButton();
         

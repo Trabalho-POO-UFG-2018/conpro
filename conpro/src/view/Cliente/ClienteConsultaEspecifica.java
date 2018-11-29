@@ -56,6 +56,7 @@ public class ClienteConsultaEspecifica extends JFrame{
         Loja loja;
         ArrayList<Integer> lojas;
         
+        ControladorDeJanelas.clearRows(jTable1);
         
         try{
             //Captura os dados dos text fields
@@ -116,7 +117,8 @@ public class ClienteConsultaEspecifica extends JFrame{
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
-
+        setTitle("Consulta por bairro");
+        
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         pesquisaTextField = new javax.swing.JTextField();

@@ -22,48 +22,12 @@ public class Loja {
             this.senha = senha;
             this.endereco = endereco;
     }
-
-
-    //setters e getters
-    public void setId(int id){
-        this.id = id;
-    }
-    public int getId(){
-        return this.id;
-    }
-    public void setRazaoSocial(String razaoSocial){
-        this.razaoSocial = razaoSocial;
-    }
-    public String getRazaoSocial(){
-        return this.razaoSocial;
-    }    
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-    public void setEndereco(Endereco endereco){
-        this.endereco = endereco;
-    }   
-    public Endereco getEndereco(){
-        return this.endereco;
-    }
     
-    public ArrayList<Produto> getProdutos(){
-        return produtos;
-    }
-    
-    //metodos
+    /**
+    * Método que valida um CNPJ
+    * @param cnpj CNPJ que será validado
+    * @throws CNPJException - Lança a exceção de CNPJ inválido caso ele seja.
+    */
     public static void validarCNPJ(String cnpj) throws CNPJException{
         if(cnpj.length() != 14)
             throw new CNPJException("O cnpj digitado não possui um formato válido");
@@ -111,13 +75,51 @@ public class Loja {
         
     }
     
+    /**
+    * Preenche a lista de produtos de uma determinada loja
+    */
     public void preencherProdutos(){
         produtos.clear();
         this.produtos = ProdutoDAO.obterProdutos(this.id);
     }
+
+    //setters e getters
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
+    public void setRazaoSocial(String razaoSocial){
+        this.razaoSocial = razaoSocial;
+    }
+    public String getRazaoSocial(){
+        return this.razaoSocial;
+    }    
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    public void setEndereco(Endereco endereco){
+        this.endereco = endereco;
+    }   
+    public Endereco getEndereco(){
+        return this.endereco;
+    }
     
-    
-   
-    
+    public ArrayList<Produto> getProdutos(){
+        return produtos;
+    }
     
 }

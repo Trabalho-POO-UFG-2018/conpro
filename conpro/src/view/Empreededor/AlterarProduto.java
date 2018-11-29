@@ -81,6 +81,8 @@ public class AlterarProduto extends JFrame{
         
         ConsultaProdutos.getInstance().setVisible(true);
         instancia.setVisible(false);
+        newQuantidadeTextField.setText("");
+        newPriceTextField.setText("");
     }                            
     
     

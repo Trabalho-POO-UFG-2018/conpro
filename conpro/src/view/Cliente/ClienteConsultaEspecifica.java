@@ -144,6 +144,7 @@ public class ClienteConsultaEspecifica extends JFrame{
                 pesquisaTextField.setText("");
                 instancia.setVisible(false);
                 PonteCliente.getInstance().setVisible(true);
+                ControladorDeJanelas.clearRows(jTable1);
             }
         });
         

@@ -390,7 +390,11 @@ public class ProdutoDAO {
         }
     }
 
-    //Matheus
+    /**
+    * Obtem os produtos que estão contidos em uma determinada loja
+    * @param int loja_id Id da loja onde queremos descobrir os produtos
+    * @return ArrayList<Produto> - Produtos que estão contidos em uma determinada loja
+    */
     public static ArrayList<Produto> obterProdutos(int loja_id) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -418,6 +422,11 @@ public class ProdutoDAO {
         }
     }
 
+    /**
+    * Obtem o id das lojas que contêm um determinado produto a partir do nome do produto
+    * @param String nome do produto que se deseja buscar 
+    * @return ArrayList<Integer> - Id das lojas que contem os produtos
+    */
     public static ArrayList<Integer> obterIdLojas(String nome_produto){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -445,7 +454,11 @@ public class ProdutoDAO {
         } 
     }
 
-
+    /**
+    * Obtem o nome do produto a partir de um id
+    * @param id_produto id do produto que desejamos buscar
+    * @return String - Nome do produto
+    */
     public static String obterNomeProduto(int id_produto){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;

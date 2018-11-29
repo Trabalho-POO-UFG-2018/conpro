@@ -160,7 +160,6 @@ public class LojaDAO {
 
     }
 
-    //Matheus
     /**Obter loja a partir de um id, em caso de erro retorna null
      * @param String cnpj
      * @return Loja loja
@@ -195,6 +194,11 @@ public class LojaDAO {
 
     }
 
+    /**
+    * Retorna o id de uma loja onde um produto p está contido
+    * @param Produto p - Produto cuja a loja queremos descobrir o ID
+    * @return ArrayList<Integer> - ArrayList dos ID's das lojas onde o produto p estão contidos
+    */
     public static ArrayList<Integer> obterIdLoja(Produto p){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
